@@ -1,0 +1,33 @@
+Description: no prefix for the source location
+ the source location of the script doesn't need a prefix
+ .
+ vanitygen (0.21-1~raring6) raring; urgency=low
+ .
+   * Initial packaging for Debian (Closes: #718860)
+Author: Richard Ulrich <richi@paraeasy.ch>
+Bug-Debian: http://bugs.debian.org/718860
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: http://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: <YYYY-MM-DD>
+
+--- vanitygen-0.21.orig/CMakeLists.txt
++++ vanitygen-0.21/CMakeLists.txt
+@@ -62,7 +62,7 @@ IF(OPENCL_FOUND)
+         COMPILE_DEFINITIONS VG_OCL_SOURCE_PREFIX="${VG_OCL_SOURCE_PREFIX}"
+ 	)
+ 	INSTALL(TARGETS oclvanitygen RUNTIME DESTINATION bin)
+-	INSTALL(FILES ${VG_OCL_SOURCE_PREFIX}/calc_addrs.cl DESTINATION share/vanitygen/scripts)
++	INSTALL(FILES calc_addrs.cl DESTINATION share/vanitygen/scripts)
+ 
+ 	IF(CURL_FOUND)
+ 		INCLUDE_DIRECTORIES(${CURL_INCLUDE_DIRS})

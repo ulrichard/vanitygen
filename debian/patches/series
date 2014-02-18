@@ -1,0 +1,7 @@
+cmake
+cmake_install
+script_prefix
+prefix_condition
+noSrcPrefix
+trailingSlash
+intelGPU

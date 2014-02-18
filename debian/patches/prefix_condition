@@ -1,0 +1,34 @@
+Description: set the prefix only if it was not provieded
+ .
+ vanitygen (0.21-1~saucy6) saucy; urgency=low
+ .
+   * Initial packaging for Debian (Closes: #718860)
+Author: Richard Ulrich <richi@paraeasy.ch>
+Bug-Debian: http://bugs.debian.org/718860
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: http://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: <YYYY-MM-DD>
+
+--- vanitygen-0.21.orig/CMakeLists.txt
++++ vanitygen-0.21/CMakeLists.txt
+@@ -4,7 +4,9 @@ PROJECT(vanitygen)
+ SET(CMAKE_MODULE_PATH ${vanitygen_SOURCE_DIR})
+ SET(CMAKE_THREAD_PREFER_PTHREAD True)
+ 
+-SET(VG_OCL_SOURCE_PREFIX ${vanitygen_SOURCE_DIR}/)
++IF(NOT VG_OCL_SOURCE_PREFIX)
++	SET(VG_OCL_SOURCE_PREFIX ${vanitygen_SOURCE_DIR}/)
++ENDIF(NOT VG_OCL_SOURCE_PREFIX)
+ 
+ FIND_PACKAGE(OpenSSL REQUIRED)
+ FIND_PACKAGE(Threads REQUIRED)

@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+# Grab the version from the changelog, up to the first -
+DEB_DEBIAN_DIR=$(dir $(firstword $(MAKEFILE_LIST)))
+DEB_UPSTREAM_VERSION=$(shell dpkg-parsechangelog -l$(DEB_DEBIAN_DIR)/changelog \
+                               | sed -rne 's,^Version: ([^-]+).*,\1,p')
+DEB_UPSTREAM_VERSFMT=$(shell echo ${DEB_UPSTREAM_VERSION} | sed -e "s/\./_/g")
+
+
+#https://wiki.debian.org/Hardening
+CPPFLAGS:=$(shell dpkg-buildflags --get CPPFLAGS)
+CFLAGS:=$(shell dpkg-buildflags --get CFLAGS) $(CPPFLAGS)
+CXXFLAGS:=$(shell dpkg-buildflags --get CXXFLAGS) $(CPPFLAGS)
+LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS)
+ 
+%:
+	dh $@ --buildsystem cmake --builddirectory=build
+
+override_dh_auto_configure :
+	dh_auto_configure -- -DCMAKE_INSTALL_PREFIX=/usr -DVG_OCL_SOURCE_PREFIX:PATH=/usr/share/vanitygen/scripts/

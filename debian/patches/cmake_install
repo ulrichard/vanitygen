@@ -1,0 +1,55 @@
+Description: added cmake install commands
+ .
+ vanitygen (0.21-1) unstable; urgency=low
+ .
+   * Initial packaging for Debian (Closes: #718860)
+Author: Richard Ulrich <richi@paraeasy.ch>
+Bug-Debian: http://bugs.debian.org/718860
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: http://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: <YYYY-MM-DD>
+
+--- vanitygen-0.21.orig/CMakeLists.txt
++++ vanitygen-0.21/CMakeLists.txt
+@@ -29,6 +29,7 @@ ADD_EXECUTABLE(vanitygen
+ TARGET_LINK_LIBRARIES(vanitygen
+ 	${VANY_LIBS}
+ )
++INSTALL(TARGETS vanitygen RUNTIME DESTINATION bin)
+ 
+ ADD_EXECUTABLE(keyconv
+ 	keyconv.c
+@@ -37,6 +38,7 @@ ADD_EXECUTABLE(keyconv
+ TARGET_LINK_LIBRARIES(keyconv
+ 	${VANY_LIBS}
+ )
++INSTALL(TARGETS keyconv RUNTIME DESTINATION bin)
+ 
+ IF(OPENCL_FOUND)
+ 	INCLUDE_DIRECTORIES(${OPENCL_INCLUDE_DIRS})
+@@ -51,6 +53,7 @@ IF(OPENCL_FOUND)
+ 		${VANY_LIBS}
+ 	    ${OPENCL_LIBRARIES}
+ 	)
++	INSTALL(TARGETS oclvanitygen RUNTIME DESTINATION bin)
+ 
+ 	IF(CURL_FOUND)
+ 		INCLUDE_DIRECTORIES(${CURL_INCLUDE_DIRS})
+@@ -65,6 +68,7 @@ IF(OPENCL_FOUND)
+ 			${OPENCL_LIBRARIES}
+ 			${CURL_LIBRARIES}
+ 		)
++		INSTALL(TARGETS oclvanityminer RUNTIME DESTINATION bin)
+ 	ENDIF(CURL_FOUND)
+ ENDIF(OPENCL_FOUND)
+ 

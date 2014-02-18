@@ -1,0 +1,112 @@
+Description: <short summary of the patch>
+ TODO: Put a short summary on the line above and replace this paragraph
+ with a longer explanation of this change. Complete the meta-information
+ with other relevant fields (see below for details). To make it easier, the
+ information below has been extracted from the changelog. Adjust it or drop
+ it.
+ .
+ vanitygen (0.21-1~saucy7) saucy; urgency=low
+ .
+   * Initial packaging for Debian (Closes: #718860)
+Author: Richard Ulrich <richi@paraeasy.ch>
+Bug-Debian: http://bugs.debian.org/718860
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: http://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: <YYYY-MM-DD>
+
+--- vanitygen-0.21.orig/oclengine.c
++++ vanitygen-0.21/oclengine.c
+@@ -5,7 +5,7 @@
+  * Vanitygen is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU Affero General Public License as published by
+  * the Free Software Foundation, either version 3 of the License, or
+- * any later version.
++ * any later version. 
+  *
+  * Vanitygen is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+@@ -49,10 +49,6 @@
+ #define is_pow2(v) (!((v) & ((v)-1)))
+ #define round_up_pow2(x, a) (((x) + ((a)-1)) & ~((a)-1))
+ 
+-#ifndef VG_OCL_SOURCE_PREFIX
+- #define VG_OCL_SOURCE_PREFIX
+-#endif // VG_OCL_SOURCE_PREFIX
+-
+ static void vg_ocl_free_args(vg_ocl_context_t *vocp);
+ static void *vg_opencl_loop(vg_exec_context_t *arg);
+ 
+@@ -403,7 +399,6 @@ enum {
+ 	VG_OCL_NV_VERBOSE           = (1 << 5),
+ 	VG_OCL_BROKEN               = (1 << 6),
+ 	VG_OCL_NO_BINARIES          = (1 << 7),
+-	VG_OCL_NO_CALLBACK          = (1 << 8),
+ 
+ 	VG_OCL_OPTIMIZATIONS        = (VG_OCL_DEEP_PREPROC_UNROLL |
+ 				       VG_OCL_PRAGMA_UNROLL |
+@@ -458,10 +453,6 @@ vg_ocl_get_quirks(vg_ocl_context_t *vocp
+ 			}
+ 		}
+ 		break;
+-    case 0x0166: /* Intel */
+-        quirks |= VG_OCL_NO_CALLBACK;
+-        quirks &= ~VG_OCL_DEEP_PREPROC_UNROLL;
+-        break;
+ 	default:
+ 		break;
+ 	}
+@@ -906,7 +897,7 @@ vg_ocl_init(vg_context_t *vcp, vg_ocl_co
+ 
+ 	vocp->voc_oclctx = clCreateContext(NULL,
+ 					   1, &did,
+-					   ((vocp->voc_quirks & VG_OCL_NO_CALLBACK) ? NULL : vg_ocl_context_callback),
++					   vg_ocl_context_callback,
+ 					   NULL,
+ 					   &ret);
+ 	if (!vocp->voc_oclctx) {
+@@ -946,7 +937,7 @@ vg_ocl_init(vg_context_t *vcp, vg_ocl_co
+ 		end += snprintf(optbuf + end, sizeof(optbuf) - end,
+ 				"-cl-nv-verbose ");
+ 
+-	if (!vg_ocl_load_program(vcp, vocp, VG_OCL_SOURCE_PREFIX "calc_addrs.cl", optbuf))
++	if (!vg_ocl_load_program(vcp, vocp, "calc_addrs.cl", optbuf))
+ 		return 0;
+ 	return 1;
+ }
+@@ -1032,7 +1023,7 @@ vg_ocl_kernel_arg_alloc(vg_ocl_context_t
+ 					     karg,
+ 					     sizeof(clbuf),
+ 					     &clbuf);
+-
++			
+ 			if (ret) {
+ 				fprintf(stderr,
+ 					"clSetKernelArg(%d,%d): ", knum, karg);
+@@ -1064,7 +1055,7 @@ vg_ocl_copyout_arg(vg_ocl_context_t *voc
+ 				   buffer,
+ 				   0, NULL,
+ 				   NULL);
+-
++			
+ 	if (ret) {
+ 		fprintf(stderr, "clEnqueueWriteBuffer(%d): ", arg);
+ 		vg_ocl_error(vocp, ret, NULL);
+@@ -2191,7 +2182,7 @@ l_rekey:
+ 			slot_busy = 1;
+ 			slot = (slot + 1) % nslots;
+ 
+-		} else {
++		} else { 
+ 			if (slot_busy) {
+ 				pthread_mutex_lock(&vocp->voc_lock);
+ 				while (vocp->voc_ocl_slot != -1) {

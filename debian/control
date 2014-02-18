@@ -1,0 +1,22 @@
+Source: vanitygen
+Section: utils
+Priority: optional
+Maintainer: Richard Ulrich <richi@paraeasy.ch>
+Build-Depends: debhelper (>= 9.0.0), cmake, libpcre3-dev, libssl-dev, zlib1g-dev, opencl-headers, ocl-icd-libopencl1, libcurl4-openssl-dev
+Standards-Version: 3.9.4
+Homepage: https://github.com/samr7/vanitygen
+
+Package: vanitygen
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: bitcoin vanity address generator
+ Vanitygen can generate regular bitcoin addresses, namecoin addresses, 
+ and testnet addresses.
+ .
+ Vanitygen can search for exact prefixes or regular expression matches.  
+ When searching for exact prefixes, vanitygen will ensure that the 
+ prefix is possible, will provide a difficulty estimate, and will run 
+ about 30% faster.  Exact prefixes are case-sensitive by default, but 
+ may be searched case-insensitively using the "-i" option.  Regular 
+ expression patterns follow the Perl-compatible regular expression 
+ language.

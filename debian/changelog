@@ -1,0 +1,6 @@
+vanitygen (0.21-1~raring8) raring; urgency=low
+
+  * Initial packaging for Debian (Closes: #718860)
+
+ -- Richard Ulrich <richi@paraeasy.ch>  Mon, 5 Aug 2013 22:47:27 +0200
+
