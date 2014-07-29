@@ -3,10 +3,10 @@
 #include <math.h>
 #include <assert.h>
 
-#include <openssl/evp.h>
-#include <openssl/bn.h>
-#include <openssl/ec.h>
-#include <openssl/obj_mac.h>
+//#include <polarssl/evp.h>
+#include <polarssl/bignum.h>
+//#include <polarssl/ec.h>
+//#include <polarssl/obj_mac.h>
 
 #if !defined(_WIN32)
 #include <unistd.h>
@@ -195,7 +195,7 @@ main(int argc, char **argv)
 		fprintf(stderr, "Privkey (hex): ");
 		dumpbn(EC_KEY_get0_private_key(pkey));
 	}
-			
+
 	if (pkcs8) {
 		res = vg_pkcs8_encode_privkey(pbuf, sizeof(pbuf),
 					      pkey, pass_in);

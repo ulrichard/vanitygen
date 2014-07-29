@@ -5,7 +5,7 @@
  * Vanitygen is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
- * any later version. 
+ * any later version.
  *
  * Vanitygen is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -26,15 +26,15 @@
 #include <assert.h>
 #include <math.h>
 
-#include <openssl/bn.h>
-#include <openssl/sha.h>
-#include <openssl/ripemd.h>
-#include <openssl/hmac.h>
-#include <openssl/evp.h>
-#include <openssl/rand.h>
-#include <openssl/x509.h>
-#include <openssl/pem.h>
-#include <openssl/pkcs12.h>
+#include <polarssl/bignum.h>
+#include <polarssl/sha256.h>
+#include <polarssl/ripemd160.h>
+//#include <polarssl/hmac.h>
+//#include <polarssl/evp.h>
+//#include <polarssl/rand.h>
+#include <polarssl/x509.h>
+#include <polarssl/pem.h>
+#include <polarssl/pkcs12.h>
 
 #include "pattern.h"
 #include "util.h"
@@ -404,7 +404,7 @@ vg_decode_privkey(const char *b58encoded, EC_KEY *pkey, int *addrtype)
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -541,7 +541,7 @@ vg_protect_crypt(int parameter_group,
 {
 	EVP_CIPHER_CTX *ctx = NULL;
 	unsigned char *salt;
-	unsigned char keymaterial[EVP_MAX_KEY_LENGTH + EVP_MAX_IV_LENGTH + 
+	unsigned char keymaterial[EVP_MAX_KEY_LENGTH + EVP_MAX_IV_LENGTH +
 				  EVP_MAX_MD_SIZE];
 	unsigned char hmac[EVP_MAX_MD_SIZE];
 	int hmac_len = 0, hmac_keylen = 0;
@@ -572,7 +572,7 @@ vg_protect_crypt(int parameter_group,
 			goto out;
 	}
 
-	if (parameter_group > (sizeof(protkey_parameters) / 
+	if (parameter_group > (sizeof(protkey_parameters) /
 			       sizeof(protkey_parameters[0])))
 		goto out;
 	params = &protkey_parameters[parameter_group];
@@ -1123,7 +1123,7 @@ vg_read_file(FILE *fp, char ***result, int *rescount)
 		}
 
 		pos = pat ? (pat - buf) : count;
-	}			
+	}
 
 	*result = patterns;
 	*rescount = npatterns;

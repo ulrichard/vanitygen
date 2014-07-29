@@ -5,7 +5,7 @@
  * Vanitygen is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
- * any later version. 
+ * any later version.
  *
  * Vanitygen is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -23,11 +23,11 @@
 
 #include <pthread.h>
 
-#include <openssl/sha.h>
-#include <openssl/ripemd.h>
-#include <openssl/bn.h>
-#include <openssl/ec.h>
-#include <openssl/obj_mac.h>
+#include <polarssl/sha256.h>
+#include <polarssl/ripemd160.h>
+#include <polarssl/bignum.h>
+//#include <polarssl/ec.h>
+//#include <polarssl/obj_mac.h>
 
 #include <pcre.h>
 
@@ -833,7 +833,7 @@ get_prefix_ranges(int addrtype, const char *pfx, BIGNUM **result,
 				BN_free(bnlow);
 				bnlow = bnlow2;
 				bnlow2 = NULL;
-			}			
+			}
 			else if (BN_cmp(&bnfloor, bnlow) > 0) {
 				/* Low prefix is partly below the floor */
 				BN_copy(bnlow, &bnfloor);
@@ -1113,12 +1113,12 @@ vg_prefix_add_ranges(avl_root_t *rootp, const char *pattern, BIGNUM **ranges,
 			vp2->vp_sibling = vp;
 	} else if (vp2) {
 		vp->vp_sibling = vp2;
-		vp2->vp_sibling = (master->vp_sibling ? 
+		vp2->vp_sibling = (master->vp_sibling ?
 				   master->vp_sibling :
 				   master);
 		master->vp_sibling = vp;
 	} else {
-		vp->vp_sibling = (master->vp_sibling ? 
+		vp->vp_sibling = (master->vp_sibling ?
 				  master->vp_sibling :
 				  master);
 		master->vp_sibling = vp;

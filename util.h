@@ -5,7 +5,7 @@
  * Vanitygen is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
- * any later version. 
+ * any later version.
  *
  * Vanitygen is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -22,8 +22,8 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#include <openssl/bn.h>
-#include <openssl/ec.h>
+#include <polarssl/bignum.h>
+//#include <polarssl/ec.h>
 
 extern const char *vg_b58_alphabet;
 extern const signed char vg_b58_reverse_map[256];

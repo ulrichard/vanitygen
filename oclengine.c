@@ -23,10 +23,10 @@
 
 #include <pthread.h>
 
-#include <openssl/ec.h>
-#include <openssl/bn.h>
-#include <openssl/rand.h>
-#include <openssl/evp.h>
+//#include <polarssl/ec.h>
+#include <polarssl/bignum.h>
+//#include <polarssl/rand.h>
+//#include <polarssl/evp.h>
 
 #ifdef __APPLE__
 #include <OpenCL/cl.h>

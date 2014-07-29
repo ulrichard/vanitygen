@@ -5,7 +5,7 @@
  * Vanitygen is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
- * any later version. 
+ * any later version.
  *
  * Vanitygen is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -23,11 +23,11 @@
 
 #include <pthread.h>
 
-#include <openssl/sha.h>
-#include <openssl/ripemd.h>
-#include <openssl/ec.h>
-#include <openssl/bn.h>
-#include <openssl/rand.h>
+#include <polarssl/sha256.h>
+#include <polarssl/ripemd160.h>
+//#include <polarssl/ec.h>
+#include <polarssl/bignum.h>
+#include <polarssl/rand.h>
 
 #include "pattern.h"
 #include "util.h"
@@ -427,7 +427,7 @@ main(int argc, char **argv)
 			}
 			break;
 		}
-			
+
 		case 'e':
 			prompt_password = 1;
 			break;
