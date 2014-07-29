@@ -11,7 +11,7 @@ how many keys it has checked.
 
 Vanitygen is written in C, and is provided in source code form and 
 pre-built Win32 binaries.  At present, vanitygen can be built on Linux, 
-and requires the openssl and pcre libraries.
+and requires the polarssl and pcre libraries.
 
 Vanitygen can generate regular bitcoin addresses, namecoin addresses, 
 and testnet addresses.
